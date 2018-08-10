@@ -1,6 +1,5 @@
 var s = function(p) {
 	var points = [];
-	var learning_rate = 0.01;
 	var m = 1;
 	var b = 0;
 
@@ -74,7 +73,7 @@ var s = function(p) {
 		points = [];
 	}
 }
-var myp5 = new p5(s, 'jcanvas');
+var myp5 = new p5(s, 'lcanvas');
 
 var g = function(p) {
 	var points = [];
@@ -97,7 +96,7 @@ var g = function(p) {
 			p.ellipse(x, y, 10, 10);
 		};
 		if (points.length > 1) {
-			p.linreg();
+			p.gradientDescent();
 			p.drawline();
 		}
 	  	
@@ -130,26 +129,16 @@ var g = function(p) {
 		p.line(x1, y1, x2, y2);
 	}
 
-	p.linreg = function() {
-		var sumx = 0;
-		var sumy = 0;
+	p.gradientDescent = function() {
 		for (let point of points) {
-			sumx += point.x;
-			sumy += point.y;
-		};
-		var meanx = sumx/points.length;
-		var meany = sumy/points.length;
-		var sumnum = 0;
-		var sumden = 0;
-		for (let point of points) {
-			sumnum += (point.x-meanx)*(point.y-meany);
-			sumden += Math.pow((point.x-meanx), 2); 
-		};
-		m = sumnum/sumden;
-		b = meany - m*meanx;
+			var error = point.y - (m*point.x+b);
+			m = m + error*point.x*learning_rate;
+			b = b + error*learning_rate;
+		}
+		
 	}
 	p.reset = function() {
 		points = [];
 	}
 }
-var myp52 = new p5(g, 'lcanvas');
+var myp52 = new p5(g, 'rcanvas');
