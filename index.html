@@ -12,6 +12,7 @@
 
     <!-- Import sketch -->
     <script type="text/javascript" src="p5/sketch.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
 
 </head>
 <body>
@@ -25,16 +26,20 @@
 	</nav>
 	<div class="row">
 		<div class="col-md-6">
-			<div class="card" style="border:1px solid #cecece; margin-top: 5px;">
-					<h4 class="card-header">Least Squares Regression</h4>
-					<div id="lcanvas"></div>
+			<div class="card text-center" style="border:1px solid #cecece; margin-top: 5px;">
+					<h4 class="card-header bg-dark">Least Squares Regression</h4>
+					<div style="padding-left: 60px; padding-top: 10px; padding-bottom: 5px">
+						<div id="lcanvas"></div>
+					</div>
 					<button type="button" onclick="myp5.reset()"> Clear screen </button>
 			</div>
 		</div>
 		<div class="col-md-6">
 			<div class="card" style="border:1px solid #cecece; margin-top: 5px;">
 					<h4 class="card-header">Gradient Descent</h4>
-					<div id="rcanvas"></div>
+					<div style="padding-left: 60px; padding-top: 10px; padding-bottom: 5px">
+						<div id="rcanvas"></div>
+					</div>
 					<button type="button" onclick="myp52.reset()"> Clear screen </button>
 			</div>
 		</div>
