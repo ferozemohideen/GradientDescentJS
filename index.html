@@ -40,8 +40,103 @@
 					<div style="padding-left: 60px; padding-top: 10px; padding-bottom: 5px">
 						<div id="rcanvas"></div>
 					</div>
-					<button type="button" onclick="myp52.reset()"> Clear screen </button>
+					<div class="row">
+						<div class="slidecontainer" style="padding-left: 75px">
+	  						<input type="range" min="0" max="100" value="50" class="slider" id="myRange">
+	  						<button type="button" onclick="myp52.reset()"> Clear screen </button>
+						</div>
+					</div>
+					<div class="row" style="margin-top: -10px; margin-bottom: 10px;">
+						<div class="slidecontainer" style="padding-left: 75px">
+	  						Learning rate: <span id="lrate">0.5</span>
+						</div>
+					</div>
+					
 			</div>
 		</div>
 	</div>
+
+	<script type="text/javascript">
+		var g = function(p) {
+		var points = [];
+		
+		var m = 1;
+		var b = 0;
+
+		var slider = document.getElementById("myRange");
+		var output = document.getElementById("lrate");
+		output.innerHTML = slider.value/100; // Display the default slider value
+		var learning_rate = slider.value/100;
+
+		slider.oninput = function() {
+		    output.innerHTML = this.value/100;
+		    learning_rate = this.value/100;
+		}
+
+		p.setup = function() {
+			p.createCanvas(600, 400);		
+		}
+
+		p.draw = function() {
+			
+
+			// Update the current slider value (each time you drag the slider handle)
+
+
+			p.background(85);
+			for (let point of points) {
+				var x = p.map(point.x, 0, 1, 0, p.width);
+				var y = p.map(point.y, 1, 0, 0, p.height);
+				p.fill(255);
+				p.stroke(255);
+				p.ellipse(x, y, 10, 10);
+			};
+			if (points.length > 1) {
+				p.gradientDescent();
+				p.drawline();
+			}
+		  	
+		}
+		p.mousePressed = function() {
+			if (p.mouseX < p.width && p.mouseX > 0 && p.mouseY > 0 && p.mouseY < p.height) {
+				var x = p.map(p.mouseX, 0, p.width, 0, 1);
+				var y = p.map(p.mouseY, 0, p.height, 1, 0);
+				var newPoint = {
+					x : x,
+					y : y
+				};
+				points.push(newPoint);
+			}
+		}
+
+		p.drawline = function(){
+			var x1 = 0;
+			var y1 = m * x1 + b;
+			var x2 = 1;
+			var y2 = m * x2 + b;
+
+			x1 = p.map(x1, 0, 1, 0, p.width);
+			y1 = p.map(y1, 0, 1, p.height, 0);
+			x2 = p.map(x2, 0, 1, 0, p.width);
+			y2 = p.map(y2, 0, 1, p.height, 0);
+
+			p.stroke(255);
+			p.strokeWeight(2);
+			p.line(x1, y1, x2, y2);
+		}
+
+		p.gradientDescent = function() {
+			for (let point of points) {
+				var error = point.y - (m*point.x+b);
+				m = m + error*point.x*learning_rate;
+				b = b + error*learning_rate;
+			}
+			
+		}
+		p.reset = function() {
+			points = [];
+		}
+	}
+	var myp52 = new p5(g, 'rcanvas');
+	</script>
 </body>
