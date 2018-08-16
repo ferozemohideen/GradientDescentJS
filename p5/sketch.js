@@ -5,7 +5,7 @@ var s = function(p) {
 
 
 	p.setup = function() {
-		p.createCanvas(600, 400);		
+		p.createCanvas(400, 300);		
 	}
 
 	p.draw = function() {

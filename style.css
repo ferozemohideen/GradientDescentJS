@@ -31,3 +31,11 @@ button {
     background: #4CAF50; /* Green background */
     cursor: pointer; /* Cursor on hover */
 }
+
+#gd {
+	font-size: 96%;
+}
+
+body {
+	background-color: #f49c9c;
+}

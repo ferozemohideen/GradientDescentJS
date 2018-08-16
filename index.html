@@ -20,38 +20,50 @@
 		<a class="navbar-brand" href="#">Ordinary Least Squares Regression vs Gradient Descent</a>
 		<ul class="nav navbar-nav">
 			<li class="nav-item">
-				<a class="nav-link" href="#">Index</a>
+				<a class="nav-link" href="https://github.com/ferozemohideen/GradientDescentJS">Source Code on GitHub</a>
 			</li>
 		</ul>          
 	</nav>
-	<div class="row">
-		<div class="col-md-6">
-			<div class="card text-center" style="border:1px solid #cecece; margin-top: 5px;">
-					<h4 class="card-header bg-dark">Least Squares Regression</h4>
-					<div style="padding-left: 60px; padding-top: 10px; padding-bottom: 5px">
-						<div id="lcanvas"></div>
-					</div>
-					<button type="button" onclick="myp5.reset()"> Clear screen </button>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card text-center" style="border:1px solid #cecece; margin-top: 5px">
+						<h4 class="card-header bg-dark" style="padding-left:120px;">Least Squares Regression</h4>
+						<div style="padding-left: 60px; width: 460px; padding-top: 10px">
+						<h4> What is Least Squares Regression? </h4>
+							<p> The method of least squares is a standard approach in regression analysis to approximate the solution of overdetermined systems, i.e., sets of equations in which there are more equations than unknowns. "Least squares" means that the overall solution minimizes the sum of the squares of the residuals made in the results of every single equation. </p>
+							<p>The most important application is in data fitting. The best fit in the least-squares sense minimizes the sum of squared residuals (a residual being: the difference between an observed value, and the fitted value provided by a model). When the problem has substantial uncertainties in the independent variable (the x variable), then simple regression and least-squares methods have problems; in such cases, the methodology required for fitting errors-in-variables models may be considered instead of that for least squares.</p>
+							<p> The app below demonstrates an the <i>ordinary</i> least squares method. Click on the canvas to generate datapoints, and the app will draw the line corresponding to
+								the best fit (minimizing the least squares error) among the points. Since this example is in 2D, we can just use a strict formula to derive the coefficients representing this
+								best line; more information about how those coefficients were calculated can be found <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares">here.</a> </p>
+						</div>
+						<div style="padding-left: 60px; padding-top: 10px; padding-bottom: 5px;">
+							<div id="lcanvas"></div>
+						</div>
+						<button type="button" onclick="myp5.reset()"> Clear screen </button>
+				</div>
 			</div>
-		</div>
-		<div class="col-md-6">
-			<div class="card" style="border:1px solid #cecece; margin-top: 5px;">
-					<h4 class="card-header">Gradient Descent</h4>
-					<div style="padding-left: 60px; padding-top: 10px; padding-bottom: 5px">
-						<div id="rcanvas"></div>
-					</div>
-					<div class="row">
-						<div class="slidecontainer" style="padding-left: 75px">
-	  						<input type="range" min="0" max="100" value="50" class="slider" id="myRange">
-	  						<button type="button" onclick="myp52.reset()"> Clear screen </button>
+			<div class="col-md-6">
+				<div class="card" style="border:1px solid #cecece; margin-top: 5px;">
+						<h4 class="card-header" style="padding-left:160px">Gradient Descent</h4>
+						<div style="padding-left: 60px; width: 460px; padding-top: 10px">
+						<h4> What is Gradient Descent? </h4>
+							<p id="gd"> Gradient descent is a first-order iterative optimization algorithm for finding the minimum of a function. To find a local minimum of a function using gradient descent, one takes steps proportional to the negative of the gradient (or approximate gradient) of the function at the current point. </p>
+							<!-- <p>Gradient descent requires a cost function (there are many types of cost functions). We need this cost function because we want to minimize it. Minimizing any function means finding the deepest valley in that function. Keep in mind that, the cost function is used to monitor the error in predictions of an ML model. Minimizing this basically means getting to the lowest error value possible or increasing the accuracy of the model. In short, we increase the accuracy by iterating over a training data set while tweaking the parameters (the weights and biases) of our model.</p> -->
+							<p id="gd"> In the case of 2D, these weights and biases are nothing more than the values of the slope and y-intercept of the best fit line. The app below demonstrates <i>stochastic</i> gradient descent, which is slightly different than normal gradient descent; SGD is an iterative method for optimizing a differentiable objective function. It is called stochastic because samples are selected randomly (or shuffled) instead of as a single group (as in standard gradient descent) or in the order they appear in the training set. In the app below, the gradient is calculated from the error due to a single data point each time, which updates the line parameters each time. The change in these parameters as a result of this error is usually bounded by a hyperparameter known as the <i>learning rate</i>, which pretty much controls how fast parameters are updated. This learning rate is an important parameter to tune because in higher dimensional settings, a high learning rate can cause the algorithm to 'overshoot' the minimum in an objective function, and a low learning rate can cause the algorithm to take too long to produce results. In this simple example, it is not too much of an issue, however. More information on gradient descent can be found <a href="https://en.wikipedia.org/wiki/Gradient_descent">here.</a></p>
+							
 						</div>
-					</div>
-					<div class="row" style="margin-top: -10px; margin-bottom: 10px;">
-						<div class="slidecontainer" style="padding-left: 75px">
-	  						Learning rate: <span id="lrate">0.5</span>
+						<div style="padding-left: 60px; padding-top: 10px; padding-bottom: 5px">
+							<div id="rcanvas"></div>
 						</div>
-					</div>
-					
+						<div class="row">
+							<div class="slidecontainer" style="padding-left: 75px;">
+		  						<input type="range" min="0" max="100" value="50" class="slider" id="myRange"> 
+		  						&nbsp;<b>Learning rate:</b> <span id="lrate">0.5</span>
+		  						<button type="button" onclick="myp52.reset()" style="margin-left: 17px;"> Clear screen </button>
+							</div>
+						</div>					
+				</div>
 			</div>
 		</div>
 	</div>
@@ -65,16 +77,16 @@
 
 		var slider = document.getElementById("myRange");
 		var output = document.getElementById("lrate");
-		output.innerHTML = slider.value/100; // Display the default slider value
-		var learning_rate = slider.value/100;
+		output.innerHTML = slider.value/1000; // Display the default slider value
+		var learning_rate = slider.value/1000;
 
 		slider.oninput = function() {
-		    output.innerHTML = this.value/100;
-		    learning_rate = this.value/100;
+		    output.innerHTML = this.value/1000;
+		    learning_rate = this.value/1000;
 		}
 
 		p.setup = function() {
-			p.createCanvas(600, 400);		
+			p.createCanvas(400, 300);		
 		}
 
 		p.draw = function() {
