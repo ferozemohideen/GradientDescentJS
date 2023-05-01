@@ -1,15 +1,5 @@
 apps:
   web-1: 
     run: launcher node index.js
-    config: 
-      resources:
-        requests:
-          cpu: 200m
-          memory: 256Mi
   worker-1:
     run: launcher node index.js
-    config:
-      resources:
-        requests:
-            cpu: 100m
-            memory: 512Mi
