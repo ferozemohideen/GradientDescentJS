@@ -18,9 +18,9 @@ jobs:
       with:
         command: apply -f porter.yaml
       env:
-        PORTER_CLUSTER: "1"
-        PORTER_HOST: https://296e-160-72-72-58.ngrok-free.app
-        PORTER_PROJECT: "1"
+        PORTER_CLUSTER: "2"
+        PORTER_HOST: https://9ada-160-72-72-58.ngrok-free.app
+        PORTER_PROJECT: "2"
         PORTER_STACK_NAME: test-end-to-end
         PORTER_TAG: ${{ steps.vars.outputs.sha_short }}
-        PORTER_TOKEN: ${{ secrets.PORTER_STACK_1_1 }}
+        PORTER_TOKEN: ${{ secrets.PORTER_STACK_2_2 }}
